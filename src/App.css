@@ -11,5 +11,26 @@
 .App {
 	/* background: radial-gradient(ellipse at top, #e66465, transparent),
             radial-gradient(ellipse at bottom, #4d9f0c, transparent); */
-  height: 100vh;
+	height: 100vh;
+}
+
+.grid {
+	margin-left: 25vh;
+  box-shadow: 0 2px 8px 4px slategray;
+}
+.btn{
+	padding: 5px;
+  border-style: none;
+  background: crimson;
+  color: snow;
+  border-radius: 4px;
+  margin-left:10px ;
+  box-shadow: 0 2px 8px 4px slategray;
+}
+.btn-read {
+	/* top | right | bottom | left */
+	margin: 40px 0px 10px 25vh;
+}
+.btn-excel {
+  border-style: none;
 }
