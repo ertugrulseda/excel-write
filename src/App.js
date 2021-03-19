@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import React, { useState, useRef } from 'react';
-import ExcelJS from 'exceljs';
+import React, { useState } from 'react';
+import * as Excel from 'exceljs';
+import { saveAs } from 'file-saver';
 
 function App() {
 	const [ rowData, setRowData ] = useState([]);
@@ -25,8 +25,45 @@ function App() {
 		setRowData(arr);
 	};
 
-	const createExcel = () => {
-		console.log('createExcel');
+	const createExcel = async () => {
+		const workbook = new Excel.Workbook();
+		workbook.creator = 'Me';
+		workbook.lastModifiedBy = 'Her';
+
+		workbook.views = [
+			{
+				x: 0,
+				y: 0,
+				width: 10000,
+				height: 20000,
+				firstSheet: 0,
+				activeTab: 1,
+				visibility: 'visible'
+			}
+		];
+
+		const sheet = workbook.addWorksheet('Sayfa1', { properties: { tabColor: { argb: 'FFC0000' } } });
+		sheet.columns = [
+			{ header: 'Ad', key: 'ad', width: 40 },
+			{ header: 'Cinsiyet', key: 'cinsiyet', width: 25 },
+			{ header: 'Memleket', key: 'memleket', width: 40 },
+			{ header: 'Durum.', key: 'durum', width: 25 }
+		];
+
+		rowData.forEach((item, index) => {
+			sheet.addRow({
+				id: index,
+				ad: item.ad,
+				cinsiyet: item.cinsiyet,
+				memleket: item.memleket,
+				durum: item.durum
+			});
+		});
+		const buffer = await workbook.xlsx.writeBuffer();
+		const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+		const blob = new Blob([ buffer ], { type: fileType });
+		saveAs(blob, 'export.xlsx');
+		alert('Excel Oluşturuldu');
 	};
 
 	const clear = () => {
