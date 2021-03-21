@@ -27,29 +27,15 @@ function App() {
 
 	const createExcel = async () => {
 		const workbook = new Excel.Workbook();
-		workbook.creator = 'Me';
-		workbook.lastModifiedBy = 'Her';
-
-		workbook.views = [
-			{
-				x: 0,
-				y: 0,
-				width: 10000,
-				height: 20000,
-				firstSheet: 0,
-				activeTab: 1,
-				visibility: 'visible'
-			}
-		];
-
-		const sheet = workbook.addWorksheet('Sayfa1', { properties: { tabColor: { argb: 'FFC0000' } } });
+		workbook.creator = 'Seda';
+		workbook.lastModifiedBy = 'Seda';
+		const sheet = workbook.addWorksheet('Sayfa1', { properties: { tabColor: { argb: 'FFC0000' } } });	
 		sheet.columns = [
 			{ header: 'Ad', key: 'ad', width: 40 },
 			{ header: 'Cinsiyet', key: 'cinsiyet', width: 25 },
 			{ header: 'Memleket', key: 'memleket', width: 40 },
 			{ header: 'Durum.', key: 'durum', width: 25 }
 		];
-
 		rowData.forEach((item, index) => {
 			sheet.addRow({
 				id: index,
@@ -67,6 +53,7 @@ function App() {
 	};
 
 	const clear = () => {
+	
 		setRowData([]);
 	};
 	return (
